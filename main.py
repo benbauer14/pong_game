@@ -33,14 +33,14 @@ game_over = False
 while game_over == False:
     screen.update()
     ball.move()
-    time.sleep(0.1)
+    time.sleep(0.05)
     if(ball.ycor() > 200 > 0):
         ball.bouncetop()
     elif(ball.ycor() < -200):
         ball.bouncetop()
-    if(ball.distance(paddle_right) < 30):
+    if(ball.distance(paddle_right) <= 20):
         ball.bouncepaddle()
-    if(ball.distance(paddle_left) < 30):
+    if(ball.distance(paddle_left) <= 20):
         ball.bouncepaddle()
     if(ball.xcor() >= 400):
         scoreboard.score("left")
@@ -50,6 +50,15 @@ while game_over == False:
         scoreboard.score("right")
         ball.bouncepaddle()
         ball.goto(0,0)
-        
+    if(scoreboard.left >=10):
+        game_over = True
+        scoreboard.goto(0,0)
+        scoreboard.clear()
+        scoreboard.write(f"Left wins!",False, "center", ("Arial",24,"normal"))
+    if(scoreboard.right >=10):
+        game_over = True
+        scoreboard.goto(0,0)
+        scoreboard.clear()
+        scoreboard.write(f"Right wins!",False, "center", ("Arial",24,"normal"))        
 
 screen.exitonclick()
